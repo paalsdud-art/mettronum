@@ -31,8 +31,6 @@
   var rhythmList = document.getElementById('rhythm-list');
   var rhythmEmpty = document.getElementById('rhythm-empty');
   var rhythmHint = document.getElementById('rhythm-hint');
-  var minusBtn = document.getElementById('minus-btn');
-  var plusBtn = document.getElementById('plus-btn');
 
   // phase: idle | countdown | running | paused | done
   var state = { phase: 'idle', count: 0, target: 12, bpm: 30, prep: 0 };
@@ -160,14 +158,10 @@
     updateSteppers();
     if (view === 'mypage') renderRhythms();
 
-    var paused = s.phase === 'paused';
-    minusBtn.disabled = !paused || s.count <= 0;
-    plusBtn.disabled = !paused;
-
     if (s.phase === 'done') {
       messageEl.textContent = '목표 코 수에 도달했어요. 실제 코 수를 확인해 주세요.';
     } else if (s.phase === 'paused') {
-      messageEl.textContent = '실제로 뜬 코 수에 맞춰 숫자를 조정한 뒤 재개하세요.';
+      messageEl.textContent = '속도를 바꾼 뒤 재개할 수 있어요.';
     } else {
       messageEl.textContent = '';
     }
@@ -322,23 +316,6 @@
   });
 
   resetBtn.addEventListener('click', reset);
-
-  minusBtn.addEventListener('click', function () {
-    if (state.phase !== 'paused' || state.count <= 0) return;
-    state.count -= 1;
-    render();
-  });
-
-  plusBtn.addEventListener('click', function () {
-    if (state.phase !== 'paused') return;
-    state.count += 1;
-    if (state.count >= state.target) {
-      state.count = state.target;
-      finish(0); // 추가 박자 없이 완료음만
-    } else {
-      render();
-    }
-  });
 
   function onSettingsInput() {
     var v = validateSettings();

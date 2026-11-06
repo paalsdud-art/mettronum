@@ -1,4 +1,4 @@
-/* 휴대폰 한 화면: 진행 카드, 메트로놈 카드, 조정 버튼을 위에서 아래로 쌓는다 */
+/* 휴대폰 한 화면: 진행 카드, 메트로놈 카드를 위에서 아래로 쌓는다 */
 :root {
   --bg: #fbf6ee;
   --text: #3b2a4a;
@@ -104,10 +104,6 @@ button:disabled { opacity: .35; cursor: default; }
 .message { min-height: 44px; margin: 0; text-align: center; font-size: 15px; line-height: 1.45; }
 #app[data-phase="done"] .message { color: var(--done); font-weight: 700; }
 
-.adjust { display: flex; gap: 12px; }
-.adjust button { flex: 1; min-height: 64px; border-radius: 22px; font-size: 22px; font-weight: 800; color: #fff; }
-.adj-minus { background: linear-gradient(135deg, #e9a1bf, var(--pink-deep)); }
-.adj-plus { background: linear-gradient(135deg, #c6a7e3, var(--purple-deep)); }
 
 @media (prefers-reduced-motion: reduce) {
   .summary.beat, .summary.beat .count { animation: none; }
@@ -125,7 +121,6 @@ button:disabled { opacity: .35; cursor: default; }
   .primary { min-height: 60px; font-size: 22px; }
   .step { height: 42px; }
   .message { min-height: 36px; font-size: 14px; }
-  .adjust button { min-height: 54px; font-size: 20px; }
 }
 
 
