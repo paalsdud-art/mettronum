@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>메뜨로늄</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app" data-phase="idle">
+    <header class="top">
+      <button id="nav-btn" type="button" class="icon-btn nav-btn" aria-label="마이페이지">
+        <svg class="ic-user" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="ic-back" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h1 id="title">메뜨로늄</h1>
+      <button id="reset-btn" type="button" class="icon-btn" aria-label="초기화">
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <section class="card summary main-only" id="stage" aria-label="진행">
+      <div id="stage-label" class="stage-label"></div>
+      <div class="progress">
+        <span id="count" class="count" aria-live="off">0</span>
+        <span id="goal" class="goal">/ 12코</span>
+      </div>
+    </section>
+
+    <section class="card guide main-only" aria-label="박자 설정">
+      <svg class="metronome" viewBox="0 0 120 170" aria-hidden="true">
+        <path d="M38 12h44l26 138H12z" fill="#d9c6ec" stroke="#b59bd3" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="58" y="28" width="4" height="96" rx="2" fill="#f4eaf9"/>
+        <g stroke="#f4eaf9" stroke-width="3" stroke-linecap="round"><path d="M50 52h20M48 76h24M46 100h28"/></g>
+        <rect x="6" y="146" width="108" height="16" rx="8" fill="#ecdff6" stroke="#b59bd3" stroke-width="3"/>
+        <g id="arm" class="arm">
+          <line x1="60" y1="146" x2="60" y2="30" stroke="#7b4fa3" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="60" cy="38" r="11" fill="#e98fb5"/>
+        </g>
+        <circle cx="60" cy="146" r="6" fill="#7b4fa3"/>
+      </svg>
+
+      <button id="main-btn" type="button" class="primary">시작</button>
+
+      <div class="stepper-row">
+        <span class="stepper-label">속도</span>
+        <div class="stepper">
+          <button type="button" class="step" data-input="bpm-input" data-dir="-1" aria-label="속도 줄이기">−</button>
+          <div class="stepper-value">
+            <input id="bpm-input" type="number" inputmode="numeric" min="10" max="120" step="1" value="30" aria-label="분당 박 수">
+            <span>BPM</span>
+          </div>
+          <button type="button" class="step" data-input="bpm-input" data-dir="1" aria-label="속도 높이기">+</button>
+        </div>
+      </div>
+      <div class="stepper-row">
+        <span class="stepper-label">목표 코 수</span>
+        <div class="stepper">
+          <button type="button" class="step" data-input="target-input" data-dir="-1" aria-label="목표 코 수 줄이기">−</button>
+          <div class="stepper-value">
+            <input id="target-input" type="number" inputmode="numeric" min="1" max="999" step="1" value="12" aria-label="목표 코 수">
+            <span>코</span>
+          </div>
+          <button type="button" class="step" data-input="target-input" data-dir="1" aria-label="목표 코 수 늘리기">+</button>
+        </div>
+      </div>
+      <div class="save-area">
+        <button id="save-open-btn" type="button" class="link-btn">내 리듬에 저장</button>
+        <form id="save-form" class="save-form" hidden>
+          <input id="rhythm-name" type="text" maxlength="20" placeholder="이름 (예: 느린 뜨기)" aria-label="리듬 이름" autocomplete="off">
+          <button type="submit" class="save-submit">저장</button>
+          <button type="button" id="save-cancel-btn" class="save-cancel">취소</button>
+        </form>
+        <p id="save-note" class="note" role="status"></p>
+      </div>
+      <p id="settings-error" class="error" role="alert" hidden></p>
+    </section>
+
+    <section id="mypage" class="card page-card" aria-label="마이페이지" hidden>
+      <h2>내 리듬</h2>
+      <p id="rhythm-hint" class="note"></p>
+      <ul id="rhythm-list" class="rhythm-list"></ul>
+      <p id="rhythm-empty" class="note">저장한 리듬이 없어요. 메인 화면에서 "내 리듬에 저장"을 눌러 보세요.</p>
+    </section>
+
+    <p id="message" class="message main-only" role="status" aria-live="polite"></p>
+
+    <section class="adjust main-only" aria-label="코 수 조정">
+      <button id="minus-btn" type="button" class="adj-minus">코 −1</button>
+      <button id="plus-btn" type="button" class="adj-plus">코 +1</button>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
